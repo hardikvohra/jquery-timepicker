@@ -1081,8 +1081,16 @@
 
 		var hour = parseInt(time[2]*1, 10);
 		var ampm = time[1] || time[5];
-		var hours = hour;
+    var self = $(this);
+    var settings = self.data('timepicker-settings');
 
+    if (hour > 12 && !settings.show2400) {
+      hour = 12;
+    } else if (hour >= 24 && settings.show2400) {
+      hour = 0;
+    }
+
+    var hours = hour;
 		if (hour <= 12 && ampm) {
 			var isPm = (ampm == _lang.pm || ampm == _lang.PM);
 
